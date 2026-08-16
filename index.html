@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#4f2db7" />
+  <title>مهمة إصلاح الدرون | صيف طويق للدرونز</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="decor decor-a"></div>
+  <div class="decor decor-b"></div>
+  <div class="decor decor-c"></div>
+
+  <header class="site-header">
+    <img class="brand-logo" src="assets/tuwaiq-logo.png" alt="أكاديمية طويق" />
+    <div class="header-copy">
+      <span class="eyebrow">صيف طويق للدرونز</span>
+      <h1>مهمة إصلاح الدرون</h1>
+    </div>
+    <button class="icon-button" id="soundToggle" aria-label="تشغيل أو إيقاف الصوت" title="الصوت">🔊</button>
+  </header>
+
+  <main>
+    <section id="startScreen" class="screen start-screen active">
+      <div class="hero-card">
+        <div class="hero-copy">
+          <span class="level-pill">نشاط تفاعلي</span>
+          <h2>هل تستطيع إصلاح الدرون؟</h2>
+          <p>ستمر عبر <strong>6 مستويات</strong>. في كل مستوى توجد مشكلة بسيطة. اختر القطعة الصحيحة لإصلاح الدرون والانتقال للمستوى التالي.</p>
+
+          <label class="team-label" for="teamName">اسم الفريق <span>(اختياري)</span></label>
+          <input id="teamName" class="team-input" maxlength="20" placeholder="مثال: فريق الصقور" />
+
+          <div class="start-actions">
+            <button id="startBtn" class="primary-button">ابدأ المهمة 🚁</button>
+            <span class="small-note">اسحب بالماوس لتدوير الدرون</span>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="mini-drone" aria-hidden="true">
+            <span class="arm arm-1"></span><span class="arm arm-2"></span>
+            <span class="arm arm-3"></span><span class="arm arm-4"></span>
+            <span class="mini-body"></span>
+            <span class="rotor r1"></span><span class="rotor r2"></span>
+            <span class="rotor r3"></span><span class="rotor r4"></span>
+          </div>
+          <div class="hero-ring ring-1"></div>
+          <div class="hero-ring ring-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen game-screen">
+      <div class="top-strip">
+        <div class="team-chip" id="teamChip">مهندسو الدرون</div>
+        <div class="progress-wrap" aria-label="تقدم المستويات">
+          <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+          <div class="level-dots" id="levelDots"></div>
+        </div>
+        <div class="score-chip"><span id="scoreText">0</span> / 6 ✓</div>
+      </div>
+
+      <div class="game-grid">
+        <section class="drone-panel card-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow purple">الدرون ثلاثي الأبعاد</span>
+              <h2 id="modelTitle">افحص الدرون</h2>
+            </div>
+            <div class="view-hint">↔ اسحب للتدوير</div>
+          </div>
+
+          <div id="threeStage" class="three-stage">
+            <canvas id="droneCanvas"></canvas>
+            <div id="modelFallback" class="model-fallback">
+              <div class="css-drone">
+                <span class="css-arm ca1"></span><span class="css-arm ca2"></span>
+                <span class="css-arm ca3"></span><span class="css-arm ca4"></span>
+                <span class="css-body"></span>
+                <span class="css-rotor cr1"></span><span class="css-rotor cr2"></span>
+                <span class="css-rotor cr3"></span><span class="css-rotor cr4"></span>
+              </div>
+              <span>عرض مبسط للدرون</span>
+            </div>
+            <div id="missingBadge" class="missing-badge">قطعة مفقودة</div>
+          </div>
+
+          <div class="model-caption" id="modelCaption">راقب الدرون جيداً قبل أن تختار.</div>
+        </section>
+
+        <section class="challenge-panel card-panel">
+          <div class="level-header">
+            <div class="level-number" id="levelNumber">1</div>
+            <div>
+              <span class="eyebrow purple">المستوى <span id="levelNumberText">1</span> من 6</span>
+              <h2 id="levelTitle">المشكلة</h2>
+            </div>
+          </div>
+
+          <div class="problem-box">
+            <span class="problem-label">المشكلة</span>
+            <p id="problemText"></p>
+          </div>
+
+          <div class="question-line">ما القطعة التي نحتاجها؟</div>
+          <div id="choices" class="choices"></div>
+
+          <div class="challenge-actions">
+            <button id="hintBtn" class="secondary-button">💡 تلميح</button>
+            <button id="resetViewBtn" class="ghost-button">↻ إعادة زاوية الدرون</button>
+          </div>
+          <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="completeScreen" class="screen complete-screen">
+      <div class="complete-card">
+        <div class="badge-medal">★</div>
+        <span class="eyebrow purple">المهمة مكتملة</span>
+        <h2>تم إصلاح الدرون!</h2>
+        <p id="completeTeam">أحسنتم يا مهندسي الدرون.</p>
+        <div class="final-drone-wrap">
+          <div class="mini-drone big" aria-hidden="true">
+            <span class="arm arm-1"></span><span class="arm arm-2"></span>
+            <span class="arm arm-3"></span><span class="arm arm-4"></span>
+            <span class="mini-body"></span>
+            <span class="rotor r1"></span><span class="rotor r2"></span>
+            <span class="rotor r3"></span><span class="rotor r4"></span>
+          </div>
+        </div>
+        <div class="achievement-row">
+          <div><strong>6/6</strong><span>مستويات</span></div>
+          <div><strong>✓</strong><span>درون جاهز</span></div>
+          <div><strong>مهندس</strong><span>اللقب الجديد</span></div>
+        </div>
+        <button id="playAgainBtn" class="primary-button">إعادة المهمة</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="successModal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="success-icon">✓</div>
+      <span class="eyebrow purple">إجابة صحيحة</span>
+      <h3 id="successTitle">تم الإصلاح!</h3>
+      <p id="successText"></p>
+      <button id="nextBtn" class="primary-button">المستوى التالي ←</button>
+    </div>
+  </div>
+
+  <script type="module" src="game.js"></script>
+</body>
+</html>
