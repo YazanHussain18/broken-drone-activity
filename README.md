@@ -1,22 +1,21 @@
-# Broken Drone True 3D — Full Project
+# Restored True 3D Version
 
-This is the conventional multi-file GitHub Pages version.
+This is the repaired **single-file** version of the Broken Drone activity.
 
-Files:
-- index.html
-- styles.css
-- game.js
-- assets/
-  - tuwaiq-logo.png
-  - tuwaiq-purple-bg.png
-  - tuwaiq-white-bg.png
-- .nojekyll
+## Why this version is safer
+The previous deployment could break if `index.html`, `styles.css`, and `game.js`
+came from different versions.
 
-The propeller pivot fix is already included:
-each propeller group is positioned at its own motor and rotates around its own local origin.
+This build puts the HTML, CSS, logo, and game code inside **one `index.html`**.
+Only the Three.js 3D library is loaded online.
 
 ## GitHub Pages
-Upload the CONTENTS of this folder to the root of your repository.
+Replace the current files in your repository with this `index.html`.
 
-Then:
-Settings → Pages → Deploy from a branch → main → /root
+You can leave `.nojekyll` in the repository if you already have it.
+
+Then refresh the GitHub Pages URL with Ctrl+F5.
+
+## Propeller fix
+Each propeller group is positioned at its own motor, and its blades are created
+around the group's local origin. The propellers therefore rotate in place.
